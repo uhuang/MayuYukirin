@@ -154,7 +154,7 @@ class Animal(BaseCog):
         try:
             async with self.session.get(self.bird) as r:
                 result = await r.json()
-            await ctx.send(result['bird'])
+            await ctx.send(result['0'])
         except:
             await ctx.send("API Error")
 
