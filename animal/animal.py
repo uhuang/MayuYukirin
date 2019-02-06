@@ -1,4 +1,5 @@
 # Post animal pics by Eslyium#1949 & Yukirin#0048
+# This fork contains minor edits to include the ability to post birds
 
 # Discord
 import discord
@@ -13,6 +14,7 @@ catapi = "http://aws.random.cat/meow"
 dogapi = "https://dog.ceo/api/breeds/image/random"
 foxapi = "http://wohlsoft.ru/images/foxybot/randomfox.php"
 pugapi = "http://pugme.herokuapp.com/random"
+birdapi = "http://shibe.online/api/birds"
 
 BaseCog = getattr(commands, "Cog", object)
 
@@ -27,6 +29,7 @@ class Animal(BaseCog):
         self.dogapi = dogapi
         self.foxapi = foxapi
         self.pugapi = pugapi
+        self.birdapi = birdapi
 
     @commands.command()
     @commands.cooldown(1, 60, commands.BucketType.guild)
@@ -141,6 +144,17 @@ class Animal(BaseCog):
                     api_result = await r.json()
                     results.append(api_result['pug'])
             await ctx.send("\n".join(results))
+        except:
+            await ctx.send("API Error")
+
+    @commands.command()
+    @commands.cooldown(1, 60, commands.BucketType.guild)
+    async def bird(self, ctx):
+        """Shows a bird"""
+        try:
+            async with self.session.get(self.bird) as r:
+                result = await r.json()
+            await ctx.send(result['bird'])
         except:
             await ctx.send("API Error")
 
