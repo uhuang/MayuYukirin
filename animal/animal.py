@@ -152,7 +152,7 @@ class Animal(BaseCog):
     async def bird(self, ctx):
         """Shows a bird"""
         try:
-            async with self.session.get(self.bird) as r:
+            async with self.session.get(self.birdapi) as r:
                 result = await r.json()
             await ctx.send(result['0'])
         except:
