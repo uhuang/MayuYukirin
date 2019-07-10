@@ -15,6 +15,7 @@ dogapi = "https://dog.ceo/api/breeds/image/random"
 foxapi = "http://wohlsoft.ru/images/foxybot/randomfox.php"
 pugapi = "http://pugme.herokuapp.com/random"
 birdapi = "http://shibe.online/api/birds"
+birbapi = "https://some-random-api.ml/img/birb"
 
 BaseCog = getattr(commands, "Cog", object)
 
@@ -30,6 +31,7 @@ class Animal(BaseCog):
         self.foxapi = foxapi
         self.pugapi = pugapi
         self.birdapi = birdapi
+        self.birbapi = birbapi
 
     @commands.command()
     @commands.cooldown(1, 60, commands.BucketType.guild)
@@ -155,6 +157,17 @@ class Animal(BaseCog):
             async with self.session.get(self.birdapi) as r:
                 result = await r.json()
             await ctx.send(result['0'])
+        except:
+            await ctx.send("API Error")
+
+    @commands.command()
+    @commands.cooldown(1, 60, commands.BucketType.guild)
+    async def bird(self, ctx):
+        """Shows a bird"""
+        try:
+            async with self.session.get(self.birbapi) as r:
+                result = await r.json()
+            await ctx.send(result['link'])
         except:
             await ctx.send("API Error")
 

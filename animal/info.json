@@ -5,6 +5,6 @@
     "short" : "Post animal pics",
     "description" : "Post animal pics from API sites",
     "disabled" : false,
-    "tags" : ["animal", "image", "picture", "cat", "dog", "fox", "pug"],
+    "tags" : ["animal", "image", "picture", "cat", "dog", "fox", "pug", "bird","birb"],
     "min_python_version": [3, 6, 0]
 }
