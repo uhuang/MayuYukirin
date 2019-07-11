@@ -14,7 +14,7 @@ catapi = "http://aws.random.cat/meow"
 dogapi = "https://dog.ceo/api/breeds/image/random"
 foxapi = "http://wohlsoft.ru/images/foxybot/randomfox.php"
 pugapi = "http://pugme.herokuapp.com/random"
-birdapi = "http://shibe.online/api/birds"
+# birdapi = "http://shibe.online/api/birds"
 birbapi = "https://some-random-api.ml/img/birb"
 
 BaseCog = getattr(commands, "Cog", object)
@@ -149,16 +149,16 @@ class Animal(BaseCog):
         except:
             await ctx.send("API Error")
 
-    @commands.command()
-    @commands.cooldown(1, 60, commands.BucketType.guild)
-    async def bird(self, ctx):
+#    @commands.command()
+#    @commands.cooldown(1, 60, commands.BucketType.guild)
+#    async def bird(self, ctx):
         """Shows a bird"""
-        try:
-            async with self.session.get(self.birdapi) as r:
-                result = await r.json()
-            await ctx.send(result['0'])
-        except:
-            await ctx.send("API Error")
+#        try:
+#            async with self.session.get(self.birdapi) as r:
+#                result = await r.json()
+#            await ctx.send(result['0'])
+#        except:
+#            await ctx.send("API Error")
 
     @commands.command()
     @commands.cooldown(1, 60, commands.BucketType.guild)
@@ -168,6 +168,24 @@ class Animal(BaseCog):
             async with self.session.get(self.birbapi) as r:
                 result = await r.json()
             await ctx.send(result['link'])
+        except:
+            await ctx.send("API Error")
+
+    @commands.command()
+    @commands.cooldown(1, 120, commands.BucketType.guild)
+    async def birds(self, ctx, amount : int = 5):
+        """Throws a bird bomb!
+
+        Defaults to 5, max is 10"""
+        results = []
+        if amount > 10 or amount < 1:
+            amount = 5
+        try:
+            for x in range(0,amount):
+                async with self.session.get(self.birbapi) as r:
+                    api_result = await r.json()
+                    results.append(api_result['link'])
+            await ctx.send("\n".join(results))
         except:
             await ctx.send("API Error")
 
